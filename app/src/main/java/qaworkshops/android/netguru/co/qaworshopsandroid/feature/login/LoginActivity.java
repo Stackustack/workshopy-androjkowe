@@ -9,7 +9,7 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import qaworkshops.android.netguru.co.qaworshopsandroid.MainActivity;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.MainActivity;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 import qaworkshops.android.netguru.co.qaworshopsandroid.app.App;
 

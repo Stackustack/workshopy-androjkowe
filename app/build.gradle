@@ -79,5 +79,7 @@ dependencies {
     compile "com.hannesdorfmann.mosby:mvp:$Mosby"
     compile "com.hannesdorfmann.mosby:viewstate:$Mosby"
 
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+
     testCompile 'junit:junit:4.12'
 }
