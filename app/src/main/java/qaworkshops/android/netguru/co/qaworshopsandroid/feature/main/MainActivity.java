@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.ListItem;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.adapter.MainListAdapter;
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private MainListAdapter mainListAdapter;
 
@@ -40,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         setupRecyclerView();
+        setSupportActionBar(toolbar);
+    }
+
+    @OnClick(R.id.fab)
+    public void addItemToList() {
+
     }
 
     private void setupRecyclerView() {
