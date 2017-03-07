@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.login.LoginComponent;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListComponent;
 
 @Singleton
 @Component(
@@ -13,4 +14,6 @@ import qaworkshops.android.netguru.co.qaworshopsandroid.feature.login.LoginCompo
 public interface ApplicationComponent {
 
     LoginComponent plusLoginComponent();
+
+    AddToListComponent plusAddToListComponent();
 }
