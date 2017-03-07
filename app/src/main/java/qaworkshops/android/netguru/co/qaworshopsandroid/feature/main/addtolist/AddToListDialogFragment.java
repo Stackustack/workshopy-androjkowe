@@ -1,5 +1,6 @@
 package qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,10 +14,13 @@ import butterknife.OnClick;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 import qaworkshops.android.netguru.co.qaworshopsandroid.app.App;
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.ListItem;
+import qaworkshops.android.netguru.co.qaworshopsandroid.exceptions.InterfaceNotImplementedException;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.shared.BaseMvpDialogFragment;
 
 public class AddToListDialogFragment extends BaseMvpDialogFragment<AddToListContract.View,
         AddToListContract.Presenter> implements AddToListContract.View {
+
+    public static final String TAG = AddToListDialogFragment.class.getSimpleName();
 
     @BindView(R.id.item_name_edit_text)
     EditText itemNameEditText;
@@ -51,12 +55,28 @@ public class AddToListDialogFragment extends BaseMvpDialogFragment<AddToListCont
 
     @Override
     public void passResultAndCloseFragment(ListItem listItem) {
-
+        Activity targetActivity = getActivity();
+        try {
+            AddToListDialogFragment.ItemAddedListener listener
+                    = (AddToListDialogFragment.ItemAddedListener) targetActivity;
+            listener.onItemAdded(listItem);
+            dismiss();
+        } catch (ClassCastException e) {
+            throw new InterfaceNotImplementedException(e,
+                    targetActivity.getClass().getSimpleName(),
+                    AddToListDialogFragment.ItemAddedListener.class.getSimpleName());
+        }
     }
 
     @Override
     public void showItemNameRequired() {
         itemNameEditText.setError(getString(R.string.error_field_required));
         itemNameEditText.requestFocus();
+    }
+
+    @FunctionalInterface
+    public interface ItemAddedListener {
+
+        void onItemAdded(ListItem listItem);
     }
 }

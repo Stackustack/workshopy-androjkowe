@@ -16,8 +16,9 @@ import butterknife.OnClick;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.ListItem;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.adapter.MainListAdapter;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListDialogFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddToListDialogFragment.ItemAddedListener {
 
     public static final String EMAIL_KEY = "email_key";
 
@@ -49,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.fab)
-    public void addItemToList() {
-
+    public void showDialogFragment() {
+        AddToListDialogFragment
+                .newInstance()
+                .show(getSupportFragmentManager(), AddToListDialogFragment.TAG);
     }
 
     private void setupRecyclerView() {
@@ -61,5 +64,10 @@ public class MainActivity extends AppCompatActivity {
         mainListAdapter = new MainListAdapter(Arrays.asList(item1, item2, item3));
         recyclerView.setAdapter(mainListAdapter);
         recyclerView.setHasFixedSize(true);
+    }
+
+    @Override
+    public void onItemAdded(ListItem listItem) {
+
     }
 }
