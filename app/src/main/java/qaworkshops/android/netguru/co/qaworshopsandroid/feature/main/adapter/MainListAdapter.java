@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.ListItem;
@@ -14,8 +14,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListViewHolder> {
     @NonNull
     private List<ListItem> itemList;
 
-    public MainListAdapter(@NonNull List<ListItem> itemList) {
-        this.itemList = itemList;
+    public MainListAdapter() {
+        this.itemList = new ArrayList<>();
     }
 
     @Override
@@ -42,9 +42,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void addNewShots(Collection<ListItem> itemsToAdd) {
-        int oldSize = this.itemList.size();
-        this.itemList.addAll(itemsToAdd);
-        notifyItemRangeInserted(oldSize, itemsToAdd.size() + 1);
+    public void addNewItem(ListItem itemToAdd) {
+        this.itemList.add(itemToAdd);
+        notifyItemInserted(itemList.size() - 1);
     }
 }

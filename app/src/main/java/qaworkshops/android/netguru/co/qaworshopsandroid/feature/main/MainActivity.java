@@ -3,22 +3,24 @@ package qaworkshops.android.netguru.co.qaworshopsandroid.feature.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import java.util.Arrays;
+import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
+import qaworkshops.android.netguru.co.qaworshopsandroid.app.App;
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.ListItem;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.adapter.MainListAdapter;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListDialogFragment;
 
-public class MainActivity extends AppCompatActivity implements AddToListDialogFragment.ItemAddedListener {
+public class MainActivity extends MvpActivity<MainViewContract.View, MainViewContract.Presenter>
+        implements MainViewContract.View, AddToListDialogFragment.ItemAddedListener {
 
     public static final String EMAIL_KEY = "email_key";
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements AddToListDialogFr
     Toolbar toolbar;
 
     private MainListAdapter mainListAdapter;
+    private MainViewComponent component;
 
     public static void startActivity(Context context, String email) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements AddToListDialogFr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initComponent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -49,6 +53,23 @@ public class MainActivity extends AppCompatActivity implements AddToListDialogFr
         setSupportActionBar(toolbar);
     }
 
+    @NonNull
+    @Override
+    public MainViewContract.Presenter createPresenter() {
+        return component.getMainViewPresenter();
+    }
+
+    @Override
+    public void onItemAdded(ListItem listItem) {
+        getPresenter().onAddItemToListAdded(listItem);
+
+    }
+
+    @Override
+    public void addItemToList(ListItem listItem) {
+        mainListAdapter.addNewItem(listItem);
+    }
+
     @OnClick(R.id.fab)
     public void showDialogFragment() {
         AddToListDialogFragment
@@ -57,17 +78,14 @@ public class MainActivity extends AppCompatActivity implements AddToListDialogFr
     }
 
     private void setupRecyclerView() {
-        ListItem item1 = new ListItem("ONE");
-        ListItem item2 = new ListItem("TWO");
-        ListItem item3 = new ListItem("THREE");
-
-        mainListAdapter = new MainListAdapter(Arrays.asList(item1, item2, item3));
+        mainListAdapter = new MainListAdapter();
         recyclerView.setAdapter(mainListAdapter);
         recyclerView.setHasFixedSize(true);
     }
 
-    @Override
-    public void onItemAdded(ListItem listItem) {
-
+    private void initComponent() {
+        component = App.getAppComponent(this)
+                .plusMainViewComponent();
+        component.inject(this);
     }
 }
