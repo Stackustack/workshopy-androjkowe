@@ -37,13 +37,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListViewHolder> {
         return itemList;
     }
 
-    public void setNewItems(List<ListItem> itemList) {
-        this.itemList = itemList;
-        notifyDataSetChanged();
-    }
-
     public void addNewItem(ListItem itemToAdd) {
         this.itemList.add(itemToAdd);
-        notifyItemInserted(itemList.size() - 1);
+        notifyDataSetChanged();
     }
 }
