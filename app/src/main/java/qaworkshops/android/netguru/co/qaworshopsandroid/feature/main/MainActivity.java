@@ -70,6 +70,11 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
         mainListAdapter.addNewItem(listItem);
     }
 
+    @Override
+    public void removeItem(ListItem listItem) {
+        mainListAdapter.removeItem(listItem);
+    }
+
     @OnClick(R.id.fab)
     public void showDialogFragment() {
         AddToListDialogFragment

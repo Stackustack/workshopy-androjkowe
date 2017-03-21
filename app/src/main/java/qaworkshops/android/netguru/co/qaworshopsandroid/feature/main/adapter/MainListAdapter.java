@@ -45,4 +45,14 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListViewHolder> {
         this.itemList.add(itemToAdd);
         notifyDataSetChanged();
     }
+
+    public void removeItem(ListItem itemToRemove) {
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getId() == itemToRemove.getId()) {
+                itemList.remove(i);
+                notifyItemRemoved(i);
+                break;
+            }
+        }
+    }
 }

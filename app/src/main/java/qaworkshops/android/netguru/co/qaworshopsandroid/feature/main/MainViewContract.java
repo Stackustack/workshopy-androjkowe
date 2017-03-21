@@ -12,6 +12,8 @@ public interface MainViewContract {
 
         void addItemToList(ListItem listItem);
 
+        void removeItem(ListItem listItem);
+
     }
 
     interface Presenter extends MvpPresenter<MainViewContract.View> {
