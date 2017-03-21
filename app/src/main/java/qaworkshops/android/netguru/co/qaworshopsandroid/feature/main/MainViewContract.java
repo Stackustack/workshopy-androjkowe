@@ -18,5 +18,7 @@ public interface MainViewContract {
 
         void onAddItemToListAdded(ListItem listItem);
 
+        void onRemoveListItem(ListItem listItem);
+
     }
 }

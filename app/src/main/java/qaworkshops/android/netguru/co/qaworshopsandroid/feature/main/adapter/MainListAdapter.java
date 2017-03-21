@@ -8,19 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.ListItem;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.RemoveItemListener;
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListViewHolder> {
 
     @NonNull
     private List<ListItem> itemList;
 
-    public MainListAdapter() {
+    private final RemoveItemListener removeItemListener;
+
+    public MainListAdapter(RemoveItemListener removeItemListener) {
         this.itemList = new ArrayList<>();
+        this.removeItemListener = removeItemListener;
     }
 
     @Override
     public MainListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MainListViewHolder(parent);
+        return new MainListViewHolder(parent, removeItemListener);
     }
 
     @Override

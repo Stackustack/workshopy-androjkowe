@@ -20,7 +20,7 @@ import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.adapter.Mai
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListDialogFragment;
 
 public class MainActivity extends MvpActivity<MainViewContract.View, MainViewContract.Presenter>
-        implements MainViewContract.View, AddToListDialogFragment.ItemAddedListener {
+        implements MainViewContract.View, AddToListDialogFragment.ItemAddedListener, RemoveItemListener {
 
     public static final String EMAIL_KEY = "email_key";
 
@@ -78,7 +78,7 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
     }
 
     private void setupRecyclerView() {
-        mainListAdapter = new MainListAdapter();
+        mainListAdapter = new MainListAdapter(this);
         recyclerView.setAdapter(mainListAdapter);
         recyclerView.setHasFixedSize(true);
     }
@@ -87,5 +87,10 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
         component = App.getAppComponent(this)
                 .plusMainViewComponent();
         component.inject(this);
+    }
+
+    @Override
+    public void onListItemRemove(ListItem listItem) {
+        getPresenter().onRemoveListItem(listItem);
     }
 }
