@@ -4,8 +4,8 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -18,4 +18,23 @@
     <string name="action_create">Create</string>
     <string name="action_cancel">Cancel</string>
     <string name="dialog_fragment_add_new_item">Enter item name</string>
+    <string name="prompt_first_name">First name</string>
+    <string name="prompt_last_name">Last name</string>
+    <string name="action_set_birthday">Set birthdate</string>
+    <string name="select_country">Select Country</string>
+    <string name="select_gender">Select gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string-array name="countries_array">
+        <item>Poland</item>
+        <item>UK</item>
+        <item>USA</item>
+        <item>Russia</item>
+        <item>Germany</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Spain</item>
+        <item>Greece</item>
+    </string-array>
 </resources>
