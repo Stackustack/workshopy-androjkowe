@@ -6,17 +6,24 @@ import com.hannesdorfmann.mosby.mvp.MvpNullObjectBasePresenter;
 
 import javax.inject.Inject;
 
+import qaworkshops.android.netguru.co.qaworshopsandroid.data.user.User;
+import qaworkshops.android.netguru.co.qaworshopsandroid.data.user.UserProviderSource;
+
 public class RegisterViewPresenter extends MvpNullObjectBasePresenter<RegisterViewContract.View>
         implements RegisterViewContract.Presenter {
 
-    String lastName;
-    String password;
-    String email;
-    String country;
-    String gender;
+    private static final String emptyString = "";
+    private final UserProviderSource userProviderSource;
+    private String lastName;
+    private String password;
+    private String email;
+    private String country;
+    private String gender;
+    private long birthday;
 
     @Inject
-    public RegisterViewPresenter() {
+    public RegisterViewPresenter(UserProviderSource userProviderSource) {
+        this.userProviderSource = userProviderSource;
     }
 
 
@@ -45,6 +52,8 @@ public class RegisterViewPresenter extends MvpNullObjectBasePresenter<RegisterVi
     }
 
     private void registerUser() {
-
+        userProviderSource.createUser(
+                new User(emptyString, lastName, birthday, country, gender)
+        );
     }
 }

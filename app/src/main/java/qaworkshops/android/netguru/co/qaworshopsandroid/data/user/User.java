@@ -1,14 +1,14 @@
-package qaworkshops.android.netguru.co.qaworshopsandroid.data;
+package qaworkshops.android.netguru.co.qaworshopsandroid.data.user;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import qaworkshops.android.netguru.co.qaworshopsandroid.data.ListItem;
 
 public class User extends RealmObject {
 
     @PrimaryKey
     private long id;
-    private String username;
     private String firstName;
     private String lastName;
     private long birthday;
@@ -16,20 +16,26 @@ public class User extends RealmObject {
     private String gender;
     private RealmList<ListItem> userItemsList;
 
+    public User() {
+    }
+
+    public User(String firstName, String lastName,
+                long birthday, String country, String gender) {
+        this.id =  System.currentTimeMillis();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.country = country;
+        this.gender = gender;
+        this.userItemsList = new RealmList<>();
+    }
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getFirstName() {
