@@ -22,7 +22,10 @@ import butterknife.OnItemSelected;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 import qaworkshops.android.netguru.co.qaworshopsandroid.app.App;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.login.LoginActivity;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.MainActivity;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListDialogFragment;
+
+import static qaworkshops.android.netguru.co.qaworshopsandroid.R.id.email;
 
 public class RegisterActivity extends MvpActivity<RegisterViewContract.View, RegisterViewContract.Presenter>
         implements RegisterViewContract.View, DatePickerFragment.DateSetListener {
@@ -33,7 +36,7 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
     @BindView(R.id.last_name)
     TextInputEditText lastNameInputEditText;
 
-    @BindView(R.id.email)
+    @BindView(email)
     TextInputEditText emailInputEditText;
 
     @BindView(R.id.password)
@@ -129,6 +132,11 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
     @Override
     public void onBirthdayRequiredError() {
         Snackbar.make(registerLayout, getString(R.string.set_birthday_error), Snackbar.LENGTH_LONG);
+    }
+
+    @Override
+    public void openMainView(String email) {
+        MainActivity.startActivity(this, email);
     }
 
     @Override

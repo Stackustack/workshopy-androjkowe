@@ -11,6 +11,7 @@ public class User extends RealmObject {
     private long id;
     private String firstName;
     private String lastName;
+    private String email;
     private long birthday;
     private String country;
     private String gender;
@@ -19,11 +20,12 @@ public class User extends RealmObject {
     public User() {
     }
 
-    public User(String firstName, String lastName,
+    public User(String firstName, String lastName, String email,
                 long birthday, String country, String gender) {
         this.id =  System.currentTimeMillis();
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.birthday = birthday;
         this.country = country;
         this.gender = gender;
@@ -52,6 +54,14 @@ public class User extends RealmObject {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public long getBirthday() {

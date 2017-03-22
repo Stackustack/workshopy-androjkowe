@@ -52,13 +52,14 @@ public class RegisterViewPresenter extends MvpNullObjectBasePresenter<RegisterVi
         } else if (birthday == null) {
             getView().onBirthdayRequiredError();
         } else {
-            registerUser();
+            registerUserAndOpenMainView();
         }
     }
 
-    private void registerUser() {
+    private void registerUserAndOpenMainView() {
         userProviderSource.createUser(
-                new User(EMPTY_STRING, lastName, birthday.getTime(), country, gender)
+                new User(EMPTY_STRING, lastName, email, birthday.getTime(), country, gender)
         );
+        getView().openMainView(email);
     }
 }

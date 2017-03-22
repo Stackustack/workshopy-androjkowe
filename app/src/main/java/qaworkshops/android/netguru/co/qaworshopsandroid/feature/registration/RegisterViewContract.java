@@ -17,6 +17,8 @@ public interface RegisterViewContract {
 
         void onBirthdayRequiredError();
 
+        void openMainView(String email);
+
     }
 
     interface Presenter extends MvpPresenter<RegisterViewContract.View> {
