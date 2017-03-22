@@ -1,9 +1,13 @@
 package qaworkshops.android.netguru.co.qaworshopsandroid.data;
 
-public class ListItem {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-    private String title;
+public class ListItem extends RealmObject {
+
+    @PrimaryKey
     private long id;
+    private String title;
 
     public ListItem(String title) {
         this.title = title;
