@@ -3,6 +3,8 @@ package qaworkshops.android.netguru.co.qaworshopsandroid.app;
 import android.app.Application;
 import android.content.Context;
 
+import io.realm.Realm;
+
 public class App extends Application {
 
     private ApplicationComponent appComponent;
@@ -25,6 +27,8 @@ public class App extends Application {
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+
+        Realm.init(base);
     }
 
 
