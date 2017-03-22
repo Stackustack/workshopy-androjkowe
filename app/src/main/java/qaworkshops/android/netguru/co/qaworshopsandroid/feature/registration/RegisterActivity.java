@@ -1,5 +1,7 @@
 package qaworkshops.android.netguru.co.qaworshopsandroid.feature.registration;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -19,6 +21,7 @@ import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 import qaworkshops.android.netguru.co.qaworshopsandroid.app.App;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.login.LoginActivity;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListDialogFragment;
 
 public class RegisterActivity extends MvpActivity<RegisterViewContract.View, RegisterViewContract.Presenter>
@@ -47,6 +50,11 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
     private String gender;
     private Date birthday;
 
+    public static void startActivity(Context context) {
+        final Intent intent = new Intent(context, RegisterActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initComponent();
@@ -69,7 +77,7 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
                 .show(getFragmentManager(), AddToListDialogFragment.TAG);
     }
 
-    @OnClick(R.id.email_sign_in_button)
+    @OnClick(R.id.email_sign_up_button)
     public void attemptRegister() {
         getPresenter().checkFieldsCorrectness(
                 lastNameInputEditText.getEditableText().toString(),
@@ -79,6 +87,12 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
                 gender,
                 birthday
         );
+    }
+
+    @OnClick(R.id.email_sign_in_button)
+    public void showLoginView() {
+        LoginActivity.startActivity(this);
+        finish();
     }
 
     @OnItemSelected(R.id.select_country_spinner)

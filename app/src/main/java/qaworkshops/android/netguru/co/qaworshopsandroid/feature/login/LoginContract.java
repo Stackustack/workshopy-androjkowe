@@ -7,9 +7,9 @@ interface LoginContract {
 
     interface View extends MvpView {
 
-        void showInvalidEmailError();
+        void showEmailRequired();
 
-        void showPasswordToShortError();
+        void showPasswordRequired();
 
         void signInUser(String email);
 

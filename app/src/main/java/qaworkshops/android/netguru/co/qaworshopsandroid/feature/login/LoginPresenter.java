@@ -21,10 +21,10 @@ public class LoginPresenter extends MvpNullObjectBasePresenter<LoginContract.Vie
     @Override
     public void validateLoginData(String email, String password) {
         this.email = email;
-        if (!isEmailValid(email)) {
-            getView().showInvalidEmailError();
-        } else if (!isPasswordValid(password)) {
-            getView().showPasswordToShortError();
+        if (TextUtils.isEmpty(email)) {
+            getView().showEmailRequired();
+        } else if (TextUtils.isEmpty(password)) {
+            getView().showPasswordRequired();
         } else {
             signInUSer();
         }
@@ -32,13 +32,5 @@ public class LoginPresenter extends MvpNullObjectBasePresenter<LoginContract.Vie
 
     private void signInUSer() {
         getView().signInUser(email);
-    }
-
-    private boolean isEmailValid(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private boolean isPasswordValid(String password) {
-        return !TextUtils.isEmpty(password) && password.length() > 6;
     }
 }
