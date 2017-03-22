@@ -17,6 +17,7 @@ public interface RegisterViewContract {
 
     interface Presenter extends MvpPresenter<RegisterViewContract.View> {
 
-        void checkFieldsCorrectness(String lastName, String password, String email);
+        void checkFieldsCorrectness(String lastName, String password,
+                                    String email, String country, String gender);
     }
 }
