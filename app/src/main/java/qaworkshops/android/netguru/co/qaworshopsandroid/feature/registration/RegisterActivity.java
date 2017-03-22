@@ -38,6 +38,7 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
         initComponent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        setupSpinner();
     }
 
     @NonNull
@@ -49,6 +50,33 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
     @OnClick(R.id.set_birthday_button)
     public void openDatePicker() {
 
+    }
+
+    @OnClick(R.id.email_sign_in_button)
+    public void attemptRegister() {
+        getPresenter().checkFieldsCorrectness(
+                lastNameInputEditText.getEditableText().toString(),
+                passwordInputEditText.getEditableText().toString(),
+                passwordInputEditText.getEditableText().toString()
+        );
+    }
+
+    @Override
+    public void onEmptyLastNameError() {
+        lastNameInputEditText.setError(getString(R.string.error_field_required));
+        lastNameInputEditText.requestFocus();
+    }
+
+    @Override
+    public void onPasswordToShortError() {
+        passwordInputEditText.setError(getString(R.string.error_invalid_password));
+        passwordInputEditText.requestFocus();
+    }
+
+    @Override
+    public void onIncorrectEmailError() {
+        emailInputEditText.setError(getString(R.string.error_invalid_email));
+        emailInputEditText.requestFocus();
     }
 
     private void setupSpinner() {

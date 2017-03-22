@@ -7,9 +7,16 @@ public interface RegisterViewContract {
 
     interface View extends MvpView {
 
+        void onEmptyLastNameError();
+
+        void onPasswordToShortError();
+
+        void onIncorrectEmailError();
+
     }
 
     interface Presenter extends MvpPresenter<RegisterViewContract.View> {
 
+        void checkFieldsCorrectness(String lastName, String password, String email);
     }
 }
