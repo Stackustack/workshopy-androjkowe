@@ -9,6 +9,9 @@ public class ListItem extends RealmObject {
     private long id;
     private String title;
 
+    public ListItem() {
+    }
+
     public ListItem(String title) {
         this.title = title;
         this.id = System.currentTimeMillis();

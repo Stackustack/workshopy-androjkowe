@@ -6,6 +6,7 @@ import dagger.Component;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.login.LoginComponent;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.MainViewComponent;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListComponent;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.registration.RegisterViewComponent;
 
 @Singleton
 @Component(
@@ -19,4 +20,6 @@ public interface ApplicationComponent {
     AddToListComponent plusAddToListComponent();
 
     MainViewComponent plusMainViewComponent();
+
+    RegisterViewComponent plusRegisterViewComponent();
 }
