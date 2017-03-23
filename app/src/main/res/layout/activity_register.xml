@@ -88,6 +88,12 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:text="@string/your_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/birthday_text_view" />
+
             <Button
                 android:id="@+id/set_birthday_button"
                 style="?android:textAppearanceSmall"
@@ -142,22 +148,34 @@
             </RadioGroup>
 
             <Button
-                android:id="@+id/email_sign_up_button"
+                android:id="@+id/sign_up_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_register"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/have_account_sign_in"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/edit_profile_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/have_account_sign_in"
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>

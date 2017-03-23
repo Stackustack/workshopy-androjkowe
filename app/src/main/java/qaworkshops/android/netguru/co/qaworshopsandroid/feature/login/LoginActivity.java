@@ -47,7 +47,7 @@ public class LoginActivity extends MvpActivity<LoginContract.View, LoginContract
         return component.getLoginPresenter();
     }
 
-    @OnClick(R.id.email_sign_up_button)
+    @OnClick(R.id.sign_up_button)
     public void attemptLogin() {
         mEmailView.setError(null);
         mPasswordView.setError(null);

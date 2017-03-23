@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -44,6 +48,15 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
     @BindView(R.id.select_country_spinner)
     Spinner countrySpinner;
 
+    @BindView(R.id.sign_up_button)
+    Button signUpButton;
+
+    @BindView(R.id.sign_in_button)
+    Button signInButton;
+
+    @BindView(R.id.birthday_text_view)
+    TextView birthdayTextView;
+
     private RegisterViewComponent component;
     private String country;
     private String gender;
@@ -61,6 +74,9 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         setupSpinner();
+
+        signUpButton.setVisibility(View.VISIBLE);
+        signInButton.setVisibility(View.VISIBLE);
     }
 
     @NonNull
@@ -76,7 +92,7 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
                 .show(getFragmentManager(), AddToListDialogFragment.TAG);
     }
 
-    @OnClick(R.id.email_sign_up_button)
+    @OnClick(R.id.sign_up_button)
     public void attemptRegister() {
         getPresenter().checkFieldsCorrectness(
                 lastNameInputEditText.getEditableText().toString(),
@@ -88,7 +104,7 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
         );
     }
 
-    @OnClick(R.id.email_sign_in_button)
+    @OnClick(R.id.sign_in_button)
     public void showLoginView() {
         LoginActivity.startActivity(this);
         finish();
@@ -139,6 +155,8 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
     @Override
     public void onDateSet(Date date) {
         this.birthday = date;
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+        birthdayTextView.setText(String.format("%s: %s", getString(R.string.your_birthday), dateFormat.format(date)));
     }
 
     private void setupSpinner() {
