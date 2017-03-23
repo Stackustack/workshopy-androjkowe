@@ -18,6 +18,8 @@ public interface MainViewContract {
 
         void onUserItemListLoaded(List<ListItem> list);
 
+        void showLoginView();
+
     }
 
     interface Presenter extends MvpPresenter<MainViewContract.View> {
@@ -27,6 +29,8 @@ public interface MainViewContract {
         void onRemoveListItem(ListItem listItem);
 
         void onActivityStarted(String email);
+
+        void onLogoutAction();
 
     }
 }

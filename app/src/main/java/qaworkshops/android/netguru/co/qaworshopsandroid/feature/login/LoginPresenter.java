@@ -3,11 +3,13 @@ package qaworkshops.android.netguru.co.qaworshopsandroid.feature.login;
 import android.text.TextUtils;
 
 import com.hannesdorfmann.mosby.mvp.MvpNullObjectBasePresenter;
+import com.orhanobut.hawk.Hawk;
 
 import javax.inject.Inject;
 
 import qaworkshops.android.netguru.co.qaworshopsandroid.app.ActivityScope;
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.user.UserProviderSource;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.shared.Statics;
 
 @ActivityScope
 public class LoginPresenter extends MvpNullObjectBasePresenter<LoginContract.View>
@@ -34,9 +36,11 @@ public class LoginPresenter extends MvpNullObjectBasePresenter<LoginContract.Vie
     }
 
     private void signInUSer() {
-        if (userProviderSource.doesUserExistInDb(email))
+        if (userProviderSource.doesUserExistInDb(email)) {
+            Hawk.put(Statics.EMAIL_KEY, email);
             getView().signInUser(email);
-        else
+        } else {
             getView().onLoginDataIncorrect();
+        }
     }
 }

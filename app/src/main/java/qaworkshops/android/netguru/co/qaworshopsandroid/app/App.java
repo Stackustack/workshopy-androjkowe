@@ -3,6 +3,10 @@ package qaworkshops.android.netguru.co.qaworshopsandroid.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.stetho.Stetho;
+import com.orhanobut.hawk.Hawk;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+
 import io.realm.Realm;
 
 public class App extends Application {
@@ -16,6 +20,14 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Realm.init(this);
+        Hawk.init(this).build();
+
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+                        .build());
     }
 
     @Override
@@ -27,9 +39,6 @@ public class App extends Application {
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
-
-        Realm.init(base);
     }
-
 
 }

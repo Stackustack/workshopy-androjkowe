@@ -8,6 +8,7 @@ def RecyclerViewEnhanced = '1.1.0'
 def ButterKnife = '8.5.1'
 def Mosby = '2.0.1'
 def RxJava = '2.0.1'
+def Hawk = '2.0.1'
 
 android {
     compileSdkVersion 25
@@ -85,6 +86,11 @@ dependencies {
 
     compile "io.reactivex.rxjava2:rxandroid:$RxJava"
     compile "io.reactivex.rxjava2:rxjava:$RxJava"
+
+    compile "com.orhanobut:hawk:$Hawk"
+
+    compile 'com.facebook.stetho:stetho:1.4.1'
+    compile 'com.uphyca:stetho_realm:2.0.0'
 
     testCompile 'junit:junit:4.12'
 }
