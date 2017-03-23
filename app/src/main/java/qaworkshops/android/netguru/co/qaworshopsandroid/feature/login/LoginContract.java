@@ -13,6 +13,8 @@ interface LoginContract {
 
         void signInUser(String email);
 
+        void onLoginDataIncorrect();
+
     }
 
     interface Presenter extends MvpPresenter<View> {

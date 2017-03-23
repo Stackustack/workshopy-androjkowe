@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
@@ -77,6 +78,11 @@ public class LoginActivity extends MvpActivity<LoginContract.View, LoginContract
     @Override
     public void signInUser(String email) {
         MainActivity.startActivity(this, email);
+    }
+
+    @Override
+    public void onLoginDataIncorrect() {
+        Toast.makeText(this, getString(R.string.login_data_incorrect), Toast.LENGTH_LONG).show();
     }
 
     private void initComponent() {

@@ -7,15 +7,18 @@ import com.hannesdorfmann.mosby.mvp.MvpNullObjectBasePresenter;
 import javax.inject.Inject;
 
 import qaworkshops.android.netguru.co.qaworshopsandroid.app.ActivityScope;
+import qaworkshops.android.netguru.co.qaworshopsandroid.data.user.UserProviderSource;
 
 @ActivityScope
 public class LoginPresenter extends MvpNullObjectBasePresenter<LoginContract.View>
         implements LoginContract.Presenter {
 
     private String email;
+    private final UserProviderSource userProviderSource;
 
     @Inject
-    public LoginPresenter() {
+    public LoginPresenter(UserProviderSource userProviderSource) {
+        this.userProviderSource = userProviderSource;
     }
 
     @Override
@@ -31,6 +34,9 @@ public class LoginPresenter extends MvpNullObjectBasePresenter<LoginContract.Vie
     }
 
     private void signInUSer() {
-        getView().signInUser(email);
+        if (userProviderSource.doesUserExistInDb(email))
+            getView().signInUser(email);
+        else
+            getView().onLoginDataIncorrect();
     }
 }

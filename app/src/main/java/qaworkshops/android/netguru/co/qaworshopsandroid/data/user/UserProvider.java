@@ -4,6 +4,8 @@ import javax.inject.Inject;
 
 import io.realm.Realm;
 
+import static qaworkshops.android.netguru.co.qaworshopsandroid.R.id.email;
+
 public class UserProvider implements UserProviderSource {
 
     private final Realm realm;
@@ -19,6 +21,14 @@ public class UserProvider implements UserProviderSource {
         realm.executeTransaction(db -> {
             db.copyToRealm(user);
         });
+
+    }
+
+    @Override
+    public boolean doesUserExistInDb(String email) {
+        return realm.where(User.class)
+                .equalTo("email", email)
+                .findFirst() != null;
 
     }
 }
