@@ -4,12 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
@@ -44,9 +43,6 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
 
     @BindView(R.id.select_country_spinner)
     Spinner countrySpinner;
-
-    @BindView(R.id.register_layout)
-    LinearLayout registerLayout;
 
     private RegisterViewComponent component;
     private String country;
@@ -131,12 +127,13 @@ public class RegisterActivity extends MvpActivity<RegisterViewContract.View, Reg
 
     @Override
     public void onBirthdayRequiredError() {
-        Snackbar.make(registerLayout, getString(R.string.set_birthday_error), Snackbar.LENGTH_LONG);
+        Toast.makeText(this, getString(R.string.set_birthday_error), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void openMainView(String email) {
         MainActivity.startActivity(this, email);
+        finish();
     }
 
     @Override

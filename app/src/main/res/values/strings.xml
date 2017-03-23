@@ -6,6 +6,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -29,6 +30,7 @@
     <string name="other">Other</string>
     <string name="register_new_account">Do not have an account? Register</string>
     <string name="have_account_sign_in">Already have an account? Sign in</string>
+    <string name="login_data_incorrect">Provided login data is incorrect</string>
     <string-array name="countries_array">
         <item>Poland</item>
         <item>UK</item>
