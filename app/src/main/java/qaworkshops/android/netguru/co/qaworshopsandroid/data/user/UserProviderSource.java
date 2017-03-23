@@ -16,4 +16,8 @@ public interface UserProviderSource {
     void removeItemFromUserItemList(String email, ListItem listItem);
 
     List<ListItem> getUserItemListFromDb(String email);
+
+    void updateUser(User user);
+
+    User getUserFromDb(String email);
 }

@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 import qaworkshops.android.netguru.co.qaworshopsandroid.app.App;
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.ListItem;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.editprofile.EditProfileActivity;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.login.LoginActivity;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.adapter.MainListAdapter;
 import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListDialogFragment;
@@ -91,7 +92,7 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
         int id = item.getItemId();
 
         if (id == R.id.nav_edit_profile) {
-
+            EditProfileActivity.startActivity(this);
         } else if (id == R.id.nav_logout) {
             getPresenter().onLogoutAction();
         }

@@ -3,6 +3,8 @@ package qaworkshops.android.netguru.co.qaworshopsandroid.data.user;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -111,6 +113,13 @@ public class User extends RealmObject implements Parcelable {
                 }
             }
         }
+    }
+
+    public void addItemsToList(List<ListItem> list) {
+        if (userItemsList == null) {
+            userItemsList = new RealmList<>();
+        }
+        userItemsList.addAll(list);
     }
 
 

@@ -47,7 +47,18 @@ public class UserProvider implements UserProviderSource {
         return getUserFromDb(email).getUserItemsList();
     }
 
-    private User getUserFromDb(String email) {
+    @Override
+    public void updateUser(User user) {
+        User userFromDb = getUserFromDb(user.getEmail());
+        realm.executeTransaction(db -> {
+            user.setId(userFromDb.getId());
+            user.addItemsToList(userFromDb.getUserItemsList());
+            db.copyToRealmOrUpdate(user);
+        });
+    }
+
+    @Override
+    public User getUserFromDb(String email) {
         return realm.where(User.class)
                 .equalTo("email", email)
                 .findFirst();
@@ -60,6 +71,5 @@ public class UserProvider implements UserProviderSource {
                         .findFirst()
                         .deleteFromRealm()
         );
-
     }
 }

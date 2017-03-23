@@ -11,22 +11,25 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 import qaworkshops.android.netguru.co.qaworshopsandroid.app.App;
-import qaworkshops.android.netguru.co.qaworshopsandroid.data.user.User;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.main.addtolist.AddToListDialogFragment;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.registration.DatePickerFragment;
 
 import static qaworkshops.android.netguru.co.qaworshopsandroid.R.id.email;
 
 public class EditProfileActivity extends MvpActivity<EditProfileViewContract.View, EditProfileViewContract.Presenter>
-        implements EditProfileViewContract.View {
-
-    public static final String USER_KEY = "user_key";
+        implements EditProfileViewContract.View, DatePickerFragment.DateSetListener {
 
     @BindView(R.id.edit_profile_button)
     Button editProfileButton;
@@ -57,10 +60,12 @@ public class EditProfileActivity extends MvpActivity<EditProfileViewContract.Vie
 
     private EditProfileViewComponent component;
     private ArrayAdapter<CharSequence> adapter;
+    private String gender;
+    private Date birthday;
+    private String country;
 
-    public static void startActivity(Context context, User user) {
+    public static void startActivity(Context context) {
         Intent intent = new Intent(context, EditProfileActivity.class);
-        intent.putExtra(USER_KEY, user);
         context.startActivity(intent);
     }
 
@@ -75,13 +80,45 @@ public class EditProfileActivity extends MvpActivity<EditProfileViewContract.Vie
         passwordInputEditText.setVisibility(View.GONE);
 
         setupSpinner();
-        getPresenter().showUserData(getIntent().getParcelableExtra(USER_KEY));
+        getPresenter().loadUserDataFromDb();
     }
 
     @NonNull
     @Override
     public EditProfileViewContract.Presenter createPresenter() {
         return component.getEditProfileViewPresenter();
+    }
+
+    @OnClick(R.id.edit_profile_button)
+    public void onEditProfileButtonCLick() {
+        getPresenter().editUserData(
+                firstNameInputEditText.getEditableText().toString(),
+                lastNameInputEditText.getEditableText().toString(),
+                emailInputEditText.getEditableText().toString(),
+                birthday,
+                countrySpinner.getSelectedItem().toString(),
+                gender
+        );
+    }
+
+    @OnItemSelected(R.id.select_country_spinner)
+    public void spinnerItemSelected(Spinner spinner, int position) {
+        this.country = spinner.getItemAtPosition(position).toString();
+    }
+
+    @OnClick({R.id.male_radio_button, R.id.female_radio_button})
+    public void onRadioButtonClicked(RadioButton radioButton) {
+        boolean checked = radioButton.isChecked();
+        if (checked) {
+            gender = radioButton.getText().toString();
+        }
+    }
+
+    @OnClick(R.id.set_birthday_button)
+    public void openDatePicker() {
+        DatePickerFragment
+                .newInstance()
+                .show(getFragmentManager(), AddToListDialogFragment.TAG);
     }
 
     @Override
@@ -105,6 +142,11 @@ public class EditProfileActivity extends MvpActivity<EditProfileViewContract.Vie
     }
 
     @Override
+    public void setBirthdayDate(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    @Override
     public void setCountry(String country) {
         int spinnerPosition = adapter.getPosition(country);
         countrySpinner.setSelection(spinnerPosition);
@@ -112,6 +154,7 @@ public class EditProfileActivity extends MvpActivity<EditProfileViewContract.Vie
 
     @Override
     public void setGender(String gender) {
+        this.gender = gender;
         if (gender != null) {
             if (gender.equals(getString(R.string.female))) {
                 femaleRadioButton.setChecked(true);
@@ -124,8 +167,15 @@ public class EditProfileActivity extends MvpActivity<EditProfileViewContract.Vie
     }
 
     @Override
-    public void onUserNullError() {
-        Toast.makeText(this, getString(R.string.on_user_null_error), Toast.LENGTH_LONG).show();
+    public void closeView() {
+        finish();
+    }
+
+    @Override
+    public void onDateSet(Date date) {
+        this.birthday = date;
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+        birthdayTextView.setText(String.format("%s: %s", getString(R.string.your_birthday), dateFormat.format(date)));
     }
 
     private void setupSpinner() {

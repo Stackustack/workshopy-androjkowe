@@ -3,32 +3,45 @@ package qaworkshops.android.netguru.co.qaworshopsandroid.feature.editprofile;
 import android.content.Context;
 
 import com.hannesdorfmann.mosby.mvp.MvpNullObjectBasePresenter;
+import com.orhanobut.hawk.Hawk;
 
 import java.text.DateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
 import qaworkshops.android.netguru.co.qaworshopsandroid.data.user.User;
+import qaworkshops.android.netguru.co.qaworshopsandroid.data.user.UserProviderSource;
+import qaworkshops.android.netguru.co.qaworshopsandroid.feature.shared.Statics;
 
 public class EditProfileViewPresenter extends MvpNullObjectBasePresenter<EditProfileViewContract.View>
         implements EditProfileViewContract.Presenter {
 
     private final Context context;
+    private final UserProviderSource userProviderSource;
     private User user;
+    private String email;
 
     @Inject
-    public EditProfileViewPresenter(Context context) {
+    public EditProfileViewPresenter(Context context, UserProviderSource userProviderSource) {
         this.context = context;
+        this.userProviderSource = userProviderSource;
     }
 
     @Override
-    public void showUserData(User user) {
-        if (user != null) {
-            this.user = user;
-            setUserData();
-        } else {
-            getView().onUserNullError();
-        }
+    public void editUserData(String firstName, String lastName, String email,
+                             Date birthday, String country, String gender) {
+        userProviderSource.updateUser(new User(
+                firstName, lastName, email, birthday.getTime(), country, gender
+        ));
+        getView().closeView();
+    }
+
+    @Override
+    public void loadUserDataFromDb() {
+        email = Hawk.get(Statics.EMAIL_KEY);
+        this.user = userProviderSource.getUserFromDb(email);
+        setUserData();
     }
 
     private void setUserData() {
@@ -36,6 +49,7 @@ public class EditProfileViewPresenter extends MvpNullObjectBasePresenter<EditPro
         getView().setLastName(user.getLastName());
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context);
         getView().setBirthday(dateFormat.format(user.getBirthday()));
+        getView().setBirthdayDate(new Date(user.getBirthday()));
         getView().setEmail(user.getEmail());
         getView().setGender(user.getGender());
         getView().setCountry(user.getCountry());
