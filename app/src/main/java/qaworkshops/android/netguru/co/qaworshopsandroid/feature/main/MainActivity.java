@@ -51,6 +51,8 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
 
         setupRecyclerView();
         setSupportActionBar(toolbar);
+
+        getPresenter().onActivityStarted(getIntent().getStringExtra(EMAIL_KEY));
     }
 
     @NonNull
@@ -62,7 +64,6 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
     @Override
     public void onItemAdded(ListItem listItem) {
         getPresenter().onAddItemToListAdded(listItem);
-
     }
 
     @Override

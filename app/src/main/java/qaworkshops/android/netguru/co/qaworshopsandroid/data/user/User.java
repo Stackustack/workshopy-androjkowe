@@ -98,4 +98,16 @@ public class User extends RealmObject {
         }
         userItemsList.add(userItem);
     }
+
+    public void removeItemFromUserItemsList(ListItem userItem) {
+        if (userItemsList != null) {
+            for (int i = 0; i < userItemsList.size(); i++) {
+                if (userItemsList.get(i).getId() == userItem.getId()) {
+                    userItemsList.remove(i);
+                    break;
+                }
+            }
+        }
+    }
+
 }

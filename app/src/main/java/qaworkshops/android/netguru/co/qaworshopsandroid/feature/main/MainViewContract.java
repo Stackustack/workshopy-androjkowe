@@ -22,5 +22,7 @@ public interface MainViewContract {
 
         void onRemoveListItem(ListItem listItem);
 
+        void onActivityStarted(String email);
+
     }
 }
