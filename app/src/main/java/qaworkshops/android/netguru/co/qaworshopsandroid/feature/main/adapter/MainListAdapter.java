@@ -55,4 +55,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListViewHolder> {
             }
         }
     }
+
+    public void addAllItemsToList(List<ListItem> list) {
+        itemList.addAll(list);
+    }
 }

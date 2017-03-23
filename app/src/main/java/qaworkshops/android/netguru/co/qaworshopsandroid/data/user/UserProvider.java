@@ -1,5 +1,7 @@
 package qaworkshops.android.netguru.co.qaworshopsandroid.data.user;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.realm.Realm;
@@ -25,7 +27,6 @@ public class UserProvider implements UserProviderSource {
         return realm.where(User.class)
                 .equalTo("email", email)
                 .findFirst() != null;
-
     }
 
     @Override
@@ -39,6 +40,11 @@ public class UserProvider implements UserProviderSource {
         User user = getUserFromDb(email);
         realm.executeTransaction(db -> user.removeItemFromUserItemsList(listItem));
         removeListItemFromDb(listItem);
+    }
+
+    @Override
+    public List<ListItem> getUserItemListFromDb(String email) {
+        return getUserFromDb(email).getUserItemsList();
     }
 
     private User getUserFromDb(String email) {

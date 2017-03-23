@@ -78,6 +78,7 @@ public class LoginActivity extends MvpActivity<LoginContract.View, LoginContract
     @Override
     public void signInUser(String email) {
         MainActivity.startActivity(this, email);
+        finish();
     }
 
     @Override

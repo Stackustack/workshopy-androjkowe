@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -74,6 +76,11 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
     @Override
     public void removeItem(ListItem listItem) {
         mainListAdapter.removeItem(listItem);
+    }
+
+    @Override
+    public void onUserItemListLoaded(List<ListItem> list) {
+        mainListAdapter.addAllItemsToList(list);
     }
 
     @OnClick(R.id.fab)
