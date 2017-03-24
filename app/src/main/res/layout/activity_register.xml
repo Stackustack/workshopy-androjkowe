@@ -81,44 +81,87 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
-                    android:imeActionId="@+id/register"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:inputType="textPassword"
                     android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:text="@string/your_birthday"
-                android:layout_width="match_parent"
+            <View
+                style="@style/Divider"
+                android:layout_marginBottom="@dimen/divider_padding_bottom"
+                android:layout_marginTop="@dimen/divider_padding_top"
+                android:alpha="0.5" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/birthday_text_view" />
+                android:layout_gravity="center">
+
+                <TextView
+                    android:text="@string/your_birthday"
+                    android:layout_gravity="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/birthday_label_text_view"
+                    style="@style/DetailsActionButtonLabels"/>
+
+                <TextView
+                    android:text="@string/your_birthday_not_set"
+                    android:layout_toEndOf="@id/birthday_label_text_view"
+                    android:layout_toRightOf="@id/birthday_label_text_view"
+                    android:gravity="start"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/birthday_text_view"
+                    style="@style/DetailsActionButtonLabels"/>
+
+
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/set_birthday_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_set_birthday"
                 android:textStyle="bold" />
+
+            <View
+            style="@style/Divider"
+            android:layout_marginBottom="@dimen/divider_padding_bottom"
+            android:layout_marginTop="@dimen/divider_padding_top"
+            android:alpha="0.5" />
 
             <TextView
                 android:text="@string/select_country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView" />
+                android:id="@+id/textView"
+                android:paddingBottom="@dimen/text_view_label_padding_bottom"
+                style="@style/DetailsActionButtonLabels"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/select_country_spinner" />
 
+            <View
+                style="@style/Divider"
+                android:layout_marginBottom="@dimen/divider_padding_bottom"
+                android:layout_marginTop="@dimen/divider_padding_top"
+                android:alpha="0.5" />
+
             <TextView
                 android:text="@string/select_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2" />
+                android:paddingBottom="@dimen/text_view_label_padding_bottom"
+                android:id="@+id/textView2"
+                style="@style/DetailsActionButtonLabels"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -130,26 +173,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/male_radio_button"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:theme="@style/MyRadioButton"/>
 
                 <RadioButton
                     android:text="@string/female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/female_radio_button"
-                    android:layout_weight="1" />
-
-                <RadioButton
-                    android:text="@string/other"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/other_radio_button"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:theme="@style/MyRadioButton"/>
             </RadioGroup>
 
             <Button
                 android:id="@+id/sign_up_button"
-                style="?android:textAppearanceSmall"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -159,7 +197,7 @@
 
             <Button
                 android:id="@+id/sign_in_button"
-                style="?android:textAppearanceSmall"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -169,7 +207,7 @@
 
             <Button
                 android:id="@+id/edit_profile_button"
-                style="?android:textAppearanceSmall"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

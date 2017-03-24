@@ -27,11 +27,11 @@
     <string name="select_gender">Select gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="other">Other</string>
     <string name="register_new_account">Do not have an account? Register</string>
     <string name="have_account_sign_in">Already have an account? Sign in</string>
     <string name="login_data_incorrect">Provided login data is incorrect</string>
-    <string name="your_birthday">Your birthday</string>
+    <string name="your_birthday">Your birthday:</string>
+    <string name="your_birthday_not_set">not set</string>
     <string-array name="countries_array">
         <item>Poland</item>
         <item>UK</item>
