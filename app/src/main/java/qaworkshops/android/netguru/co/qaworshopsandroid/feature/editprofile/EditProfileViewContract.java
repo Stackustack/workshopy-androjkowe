@@ -32,7 +32,7 @@ public interface EditProfileViewContract {
         void editUserData(String firstName, String lastName, String email,
                           Date birthday, String country, String gender);
 
-        void loadUserDataFromDb();
+        void loadUserDataFromDb(String email);
 
     }
 }

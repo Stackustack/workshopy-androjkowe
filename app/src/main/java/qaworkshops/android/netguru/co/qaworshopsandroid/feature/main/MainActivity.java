@@ -92,7 +92,7 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
         int id = item.getItemId();
 
         if (id == R.id.nav_edit_profile) {
-            EditProfileActivity.startActivity(this);
+            getPresenter().onShowEditProfileViewClicked();
         } else if (id == R.id.nav_logout) {
             getPresenter().onLogoutAction();
         }
@@ -124,6 +124,11 @@ public class MainActivity extends MvpActivity<MainViewContract.View, MainViewCon
     public void showLoginView() {
         LoginActivity.startActivity(this);
         finish();
+    }
+
+    @Override
+    public void showEditProfileView(String email) {
+        EditProfileActivity.startActivity(this, email);
     }
 
     @OnClick(R.id.fab)

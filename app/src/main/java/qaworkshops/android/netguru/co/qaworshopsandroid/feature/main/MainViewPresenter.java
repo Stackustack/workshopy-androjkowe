@@ -53,6 +53,11 @@ public class MainViewPresenter extends MvpNullObjectBasePresenter<MainViewContra
         getView().showLoginView();
     }
 
+    @Override
+    public void onShowEditProfileViewClicked() {
+        getView().showEditProfileView(email);
+    }
+
     private void checkIfUserWasLoggedIn() {
         if (Hawk.get(Statics.EMAIL_KEY) != null) {
             loadUserData(Hawk.get(Statics.EMAIL_KEY));
