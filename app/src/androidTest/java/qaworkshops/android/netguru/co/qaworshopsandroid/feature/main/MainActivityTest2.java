@@ -182,6 +182,41 @@ public class MainActivityTest2 {
 
     }
 
+    @Test
+    public void clickLogout_showLoginView() {
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Open navigation drawer"),
+                        withParent(withId(R.id.toolbar)),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
+        ViewInteraction appCompatCheckedTextView = onView(
+                allOf(withId(R.id.design_menu_item_text), withText("Logout"), isDisplayed()));
+        appCompatCheckedTextView.perform(click());
+
+        ViewInteraction button = onView(
+                allOf(withId(R.id.sign_up_button),
+                        childAtPosition(
+                                allOf(withId(R.id.email_login_form),
+                                        childAtPosition(
+                                                withId(R.id.login_form),
+                                                0)),
+                                2),
+                        isDisplayed()));
+        button.check(matches(isDisplayed()));
+
+        ViewInteraction button2 = onView(
+                allOf(withId(R.id.email_register_button),
+                        childAtPosition(
+                                allOf(withId(R.id.email_login_form),
+                                        childAtPosition(
+                                                withId(R.id.login_form),
+                                                0)),
+                                3),
+                        isDisplayed()));
+        button2.check(matches(isDisplayed()));
+    }
+
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
