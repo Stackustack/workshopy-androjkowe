@@ -20,6 +20,8 @@ public interface MainViewContract {
 
         void showLoginView();
 
+        void showEditProfileView(String email);
+
     }
 
     interface Presenter extends MvpPresenter<MainViewContract.View> {
@@ -31,6 +33,8 @@ public interface MainViewContract {
         void onActivityStarted(String email);
 
         void onLogoutAction();
+
+        void onShowEditProfileViewClicked();
 
     }
 }

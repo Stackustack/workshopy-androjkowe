@@ -1,6 +1,7 @@
 package qaworkshops.android.netguru.co.qaworshopsandroid.feature.editprofile;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.hannesdorfmann.mosby.mvp.MvpNullObjectBasePresenter;
 import com.orhanobut.hawk.Hawk;
@@ -38,8 +39,13 @@ public class EditProfileViewPresenter extends MvpNullObjectBasePresenter<EditPro
     }
 
     @Override
-    public void loadUserDataFromDb() {
-        email = Hawk.get(Statics.EMAIL_KEY);
+    public void loadUserDataFromDb(String email) {
+        if (TextUtils.isEmpty(email)) {
+            email = Hawk.get(Statics.EMAIL_KEY);
+        } else {
+            this.email = email;
+        }
+
         this.user = userProviderSource.getUserFromDb(email);
         setUserData();
     }

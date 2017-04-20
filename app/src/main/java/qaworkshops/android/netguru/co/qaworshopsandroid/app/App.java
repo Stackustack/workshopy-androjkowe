@@ -8,6 +8,7 @@ import com.orhanobut.hawk.Hawk;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import io.realm.Realm;
+import qaworkshops.android.netguru.co.qaworshopsandroid.data.RealmInitialData;
 
 public class App extends Application {
 
@@ -20,8 +21,9 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Realm.init(this);
         Hawk.init(this).build();
+
+        initializeRealm();
 
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
@@ -39,6 +41,12 @@ public class App extends Application {
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+    }
+
+    private void initializeRealm() {
+        Realm.init(this);
+        RealmInitialData realmInitialData = new RealmInitialData();
+        realmInitialData.execute(Realm.getDefaultInstance());
     }
 
 }

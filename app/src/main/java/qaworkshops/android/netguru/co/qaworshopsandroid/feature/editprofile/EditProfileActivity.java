@@ -31,6 +31,8 @@ import static qaworkshops.android.netguru.co.qaworshopsandroid.R.id.email;
 public class EditProfileActivity extends MvpActivity<EditProfileViewContract.View, EditProfileViewContract.Presenter>
         implements EditProfileViewContract.View, DatePickerFragment.DateSetListener {
 
+    public static final String EMAIL_KEY = "email_key";
+
     @BindView(R.id.edit_profile_button)
     Button editProfileButton;
 
@@ -64,8 +66,9 @@ public class EditProfileActivity extends MvpActivity<EditProfileViewContract.Vie
     private Date birthday;
     private String country;
 
-    public static void startActivity(Context context) {
+    public static void startActivity(Context context, String email) {
         Intent intent = new Intent(context, EditProfileActivity.class);
+        intent.putExtra(EMAIL_KEY, email);
         context.startActivity(intent);
     }
 
@@ -80,7 +83,7 @@ public class EditProfileActivity extends MvpActivity<EditProfileViewContract.Vie
         passwordInputEditText.setVisibility(View.GONE);
 
         setupSpinner();
-        getPresenter().loadUserDataFromDb();
+        getPresenter().loadUserDataFromDb(getIntent().getStringExtra(EMAIL_KEY));
     }
 
     @NonNull
