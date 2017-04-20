@@ -2,25 +2,21 @@ package qaworkshops.android.netguru.co.qaworshopsandroid.feature.main;
 
 
 import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.contrib.PickerActions;
-import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.DatePicker;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
-import qaworkshops.android.netguru.co.qaworshopsandroid.feature.login.LoginActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -34,13 +30,14 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class RegisterActivityTest {
 
     @Rule
-    public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void registerActivityTest() {
@@ -52,19 +49,23 @@ public class RegisterActivityTest {
 
         ViewInteraction textInputEditText = onView(
                 withId(R.id.first_name));
-        textInputEditText.perform(scrollTo(), replaceText("Test"), closeSoftKeyboard());
+        textInputEditText.perform(scrollTo(), click());
 
         ViewInteraction textInputEditText2 = onView(
-                withId(R.id.last_name));
-        textInputEditText2.perform(scrollTo(), replaceText("Example"), closeSoftKeyboard());
+                withId(R.id.first_name));
+        textInputEditText2.perform(scrollTo(), replaceText("User"), closeSoftKeyboard());
 
         ViewInteraction textInputEditText3 = onView(
-                withId(R.id.email));
-        textInputEditText3.perform(scrollTo(), replaceText("test@example.com"), closeSoftKeyboard());
+                withId(R.id.last_name));
+        textInputEditText3.perform(scrollTo(), replaceText("Example"), closeSoftKeyboard());
 
         ViewInteraction textInputEditText4 = onView(
+                withId(R.id.email));
+        textInputEditText4.perform(scrollTo(), replaceText("user@example.com"), closeSoftKeyboard());
+
+        ViewInteraction textInputEditText5 = onView(
                 withId(R.id.password));
-        textInputEditText4.perform(scrollTo(), replaceText("test123456"), closeSoftKeyboard());
+        textInputEditText5.perform(scrollTo(), replaceText("123456"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.set_birthday_button), withText("Set birthdate"),
@@ -72,40 +73,15 @@ public class RegisterActivityTest {
                                 withParent(withId(R.id.register_form))))));
         appCompatButton2.perform(scrollTo(), click());
 
-//        ViewInteraction appCompatTextView = onView(
-//                allOf(withClassName(is("android.support.v7.widget.AppCompatTextView")), withText("2017"),
-//                        withParent(allOf(withClassName(is("android.widget.LinearLayout")),
-//                                withParent(withClassName(is("android.widget.LinearLayout"))))),
-//                        isDisplayed()));
-//        appCompatTextView.perform(click());
-
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(1992, 11, 14));
-        onView(withId(android.R.id.button1)).perform(click());
-
-//        ViewInteraction textViewWithCircularIndicator = onView(
-//                allOf(withClassName(is("android.widget.TextViewWithCircularIndicator"))));
-//        textViewWithCircularIndicator.perform(PickerActions.setDate(1995, 11, 14));
-//        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())).perform(PickerActions.setDate(1995, 11, 14));
-
-//        ViewInteraction appCompatButton3 = onView(
-//                allOf(withId(android.R.id.button1), withText("OK"),
-//                        withParent(allOf(withClassName(is("android.widget.LinearLayout")),
-//                                withParent(withClassName(is("android.widget.LinearLayout"))))),
-//                        isDisplayed()));
-//        appCompatButton3.perform(click());
-
-        ViewInteraction appCompatSpinner = onView(
-                allOf(withId(R.id.select_country_spinner),
-                        withParent(allOf(withId(R.id.email_register_form),
-                                withParent(withId(R.id.register_form))))));
-        appCompatSpinner.perform(scrollTo(), click());
-
-        ViewInteraction appCompatCheckedTextView = onView(
-                allOf(withId(android.R.id.text1), withText("USA"), isDisplayed()));
-        appCompatCheckedTextView.perform(click());
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
+                        withParent(allOf(withClassName(is("android.widget.LinearLayout")),
+                                withParent(withClassName(is("android.widget.LinearLayout"))))),
+                        isDisplayed()));
+        appCompatButton3.perform(click());
 
         ViewInteraction appCompatRadioButton = onView(
-                allOf(withId(R.id.female_radio_button), withText("Female"),
+                allOf(withId(R.id.male_radio_button), withText("Male"),
                         withParent(allOf(withId(R.id.radio_group),
                                 withParent(withId(R.id.email_register_form))))));
         appCompatRadioButton.perform(scrollTo(), click());
