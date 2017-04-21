@@ -61,10 +61,6 @@ public class MainActivityTest2 {
 
     @Before
     public void beforeClassLogin() {
-        if (initialised) {
-            return;
-        }
-
         try (Realm realm = Realm.getDefaultInstance()) {
             realm.executeTransaction(db -> {
                 RealmResults<User> results = db.where(User.class).findAll();
@@ -72,6 +68,10 @@ public class MainActivityTest2 {
                     user.setItemList(new RealmList<>());
                 }
             });
+        }
+
+        if (initialised) {
+            return;
         }
 
         Intent intent = new Intent();
