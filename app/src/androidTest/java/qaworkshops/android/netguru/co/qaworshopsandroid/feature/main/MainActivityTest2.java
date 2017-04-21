@@ -17,7 +17,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
+import qaworkshops.android.netguru.co.qaworshopsandroid.data.user.User;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
@@ -61,10 +65,20 @@ public class MainActivityTest2 {
             return;
         }
 
+        try (Realm realm = Realm.getDefaultInstance()) {
+            realm.executeTransaction(db -> {
+                RealmResults<User> results = db.where(User.class).findAll();
+                for (User user: results) {
+                    user.setItemList(new RealmList<>());
+                }
+            });
+        }
+
         Intent intent = new Intent();
         intent.putExtra(EMAIL_KEY, "john.doe@example.com");
 
         mMainActivityRule.launchActivity(intent);
+
 
         initialised = true;
     }
@@ -94,7 +108,7 @@ public class MainActivityTest2 {
 
         ViewInteraction textInputEditText4 = onView(
                 allOf(withClassName(is("android.support.design.widget.TextInputEditText")), isDisplayed()));
-        String itemName = "first" + System.currentTimeMillis();
+        String itemName = "first";
         textInputEditText4.perform(replaceText(itemName), closeSoftKeyboard());
 
         ViewInteraction appCompatButton2 = onView(
@@ -118,7 +132,7 @@ public class MainActivityTest2 {
 
         ViewInteraction textInputEditText4 = onView(
                 allOf(withClassName(is("android.support.design.widget.TextInputEditText")), isDisplayed()));
-        String itemName = "other" + System.currentTimeMillis();
+        String itemName = "other";
         textInputEditText4.perform(replaceText(itemName), closeSoftKeyboard());
 
         ViewInteraction appCompatButton2 = onView(

@@ -163,4 +163,8 @@ public class User extends RealmObject implements Parcelable {
             return new User[size];
         }
     };
+
+    public void setItemList(RealmList<ListItem> itemList) {
+        this.userItemsList = userItemsList;
+    }
 }
