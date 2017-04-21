@@ -20,13 +20,17 @@ import org.junit.runner.RunWith;
 import qaworkshops.android.netguru.co.qaworshopsandroid.R;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.assertion.PositionAssertions.isAbove;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -216,6 +220,85 @@ public class MainActivityTest2 {
                         isDisplayed()));
         button2.check(matches(isDisplayed()));
     }
+
+    @Test
+    public void editProfile_firstNameAboveLastName() {
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Open navigation drawer"),
+                        withParent(withId(R.id.toolbar)),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
+        ViewInteraction appCompatCheckedTextView = onView(
+                allOf(withId(R.id.design_menu_item_text), withText("Edit Profile"), isDisplayed()));
+        appCompatCheckedTextView.perform(click());
+
+        onView(withId(R.id.first_name_text_input_layout))
+                .check(isAbove(withId(R.id.last_name_text_input_layout)));
+
+    }
+
+    @Test
+    public void genderIsSelectedTest() {
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Open navigation drawer"),
+                        withParent(withId(R.id.toolbar)),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
+        ViewInteraction appCompatCheckedTextView = onView(
+                allOf(withId(R.id.design_menu_item_text), withText("Edit Profile"), isDisplayed()));
+        appCompatCheckedTextView.perform(click());
+
+        ViewInteraction appCompatRadioButton = onView(
+                allOf(withId(R.id.male_radio_button), withText("Male"),
+                        withParent(allOf(withId(R.id.radio_group),
+                                withParent(withId(R.id.email_register_form))))));
+
+        appCompatRadioButton.check(matches(isChecked()));
+    }
+
+    @Test
+    public void modalCloseOnBackButtonTest() {
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.fab), isDisplayed()));
+        floatingActionButton.perform(click());
+
+        pressBack();
+
+        ViewInteraction imageButton2 = onView(
+                allOf(withId(R.id.fab), isDisplayed()));
+        imageButton2.check(matches(isCompletelyDisplayed()));
+    }
+
+    @Test
+    public void newItemWithEmptyTextTest() {
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.fab), isDisplayed()));
+        floatingActionButton.perform(click());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(android.R.id.button1), withText("Create")));
+        appCompatButton.perform(scrollTo(), click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.textinput_error), withText(R.string.error_field_required),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.name_text_input_layout),
+                                        1),
+                                0),
+                        isDisplayed()));
+        textView.check(matches(withText(R.string.error_field_required)));
+
+    }
+
+    @Test
+    public void toolbarTextTest() {
+        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
+        onView(withText(R.string.app_name)).check(matches(withParent(withId(R.id.toolbar))));
+    }
+
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
